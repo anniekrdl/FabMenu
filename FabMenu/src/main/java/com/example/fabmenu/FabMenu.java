@@ -77,8 +77,13 @@ public class FabMenu {
 
             //Create Textview
             TextView textView = new TextView(context);
-            textView.setText(menuFAB.getItem(i).getTitle());
-            textView.setId(menuFAB.getItem(i).getItemId());
+            try {
+                textView.setText(menuFAB.getItem(i).getTitle());
+                textView.setId(menuFAB.getItem(i).getItemId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             textView.setTextSize(16);
             CardView.LayoutParams layoutParams = new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER_VERTICAL;
@@ -102,8 +107,12 @@ public class FabMenu {
             //Make FAB
             FloatingActionButton floatingActionButton = new FloatingActionButton(context);
             floatingActionButton.setId(menuFAB.getItem(i).getItemId());
-            DrawableCompat.setTint(menuFAB.getItem(i).getIcon(),context.getResources().getColor(iconColor));
-            floatingActionButton.setImageDrawable(menuFAB.getItem(i).getIcon());
+            try {
+                DrawableCompat.setTint(menuFAB.getItem(i).getIcon(),context.getResources().getColor(iconColor));
+                floatingActionButton.setImageDrawable(menuFAB.getItem(i).getIcon());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             floatingActionButton.setScaleY(scaleFab);
             floatingActionButton.setScaleX(scaleFab);
             LinearLayout.LayoutParams layoutParamsFAB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
