@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +31,7 @@ public class FabMenu {
     public FabMenu(Context context, FrameLayout frameLayout, int menu) {
         this.context =context;
         this.frameLayout = frameLayout;
+        frameLayout.setClipChildren(false);
         this.menu = menu;
     }
 
@@ -100,9 +100,9 @@ public class FabMenu {
         // Make linearlayout
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        CoordinatorLayout.LayoutParams linearParams = new CoordinatorLayout.LayoutParams(
-                CoordinatorLayout.LayoutParams.WRAP_CONTENT,
-                CoordinatorLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams linearParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
         linearParams.gravity = Gravity.BOTTOM|Gravity.END;
         linearParams.setMargins(margin,margin,margin,margin);
         linearLayout.setLayoutParams(linearParams);
