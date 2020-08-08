@@ -1,4 +1,4 @@
-package com.example.fabmenu;
+package com.example.fabmenulibrary;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +31,7 @@ public class FabMenu {
     public FabMenu(Context context, FrameLayout frameLayout, int menu) {
         this.context =context;
         this.frameLayout = frameLayout;
+        frameLayout.setClipChildren(false);
         this.menu = menu;
     }
 
@@ -100,9 +100,9 @@ public class FabMenu {
         // Make linearlayout
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        CoordinatorLayout.LayoutParams linearParams = new CoordinatorLayout.LayoutParams(
-                CoordinatorLayout.LayoutParams.WRAP_CONTENT,
-                CoordinatorLayout.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams linearParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
         linearParams.gravity = Gravity.BOTTOM|Gravity.END;
         linearParams.setMargins(margin,margin,margin,margin);
         linearLayout.setLayoutParams(linearParams);
@@ -117,7 +117,7 @@ public class FabMenu {
         //Make FAB
         fab = new FloatingActionButton(context);
 
-        fab.setImageResource(R.drawable.ic_baseline_add_24);
+        fab.setImageResource(com.example.fabmenu.R.drawable.ic_baseline_add_24);
         LinearLayout.LayoutParams layoutParamsFAB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         fab.setLayoutParams(layoutParamsFAB);
 
