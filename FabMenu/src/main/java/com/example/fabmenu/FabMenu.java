@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -101,6 +102,7 @@ public class FabMenu {
             //Make FAB
             FloatingActionButton floatingActionButton = new FloatingActionButton(context);
             floatingActionButton.setId(menuFAB.getItem(i).getItemId());
+            DrawableCompat.setTint(menuFAB.getItem(i).getIcon(),context.getResources().getColor(iconColor));
             floatingActionButton.setImageDrawable(menuFAB.getItem(i).getIcon());
             floatingActionButton.setScaleY(scaleFab);
             floatingActionButton.setScaleX(scaleFab);
