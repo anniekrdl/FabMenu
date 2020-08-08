@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,13 +24,13 @@ public class FabMenu {
     private Context context;
     private FrameLayout frameLayout;
     private FloatingActionButton fab;
-    int iconColor = android.R.color.white;
     private boolean isFabOpen = false;
 
     //Changeable variables
     int menu;
     int color = android.R.color.holo_orange_light;
     int colorMiniFab = android.R.color.holo_orange_light;
+    int iconColor = android.R.color.white;
 
     public FabMenu(Context context, FrameLayout frameLayout, int menu) {
         this.context =context;
@@ -49,13 +49,17 @@ public class FabMenu {
         this.colorMiniFab = colorMiniFab;
     }
 
-    public void setIcon(int iconColor) {
+    public void setIconColor(int iconColor) {
         this.iconColor = iconColor;
+
     }
 
     public void createFabMenu(int menu, int margin) {
         Float scaleFab = 0.8f;
         Menu menuFAB = getMenu(menu);
+        int marginCardView = (int) convertDpToPixels(context, 9);
+        int marginCardViewVertical = (int) convertDpToPixels(context,6);
+        int radius = (int) convertDpToPixels(context,3);
 
         for (int i =0; i<menuFAB.size(); i++) {
             // Make linearlayout
@@ -70,14 +74,28 @@ public class FabMenu {
             linearLayout.setLayoutParams(linearParams);
             linearLayout.setId(menuFAB.getItem(i).getItemId());
 
-            //Create Textview in Linearlayout
+            //Create Textview
             TextView textView = new TextView(context);
             textView.setText(menuFAB.getItem(i).getTitle());
             textView.setId(menuFAB.getItem(i).getItemId());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            textView.setTextSize(16);
+            CardView.LayoutParams layoutParams = new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER_VERTICAL;
+            layoutParams.setMargins(marginCardView, marginCardViewVertical, marginCardView, marginCardViewVertical);
             textView.setLayoutParams(layoutParams);
-            ((LinearLayout) linearLayout).addView(textView);
+
+
+
+            //Create a Cardview with Textview
+            CardView cardView = new CardView(context);
+            cardView.setId(menuFAB.getItem(i).getItemId());
+            LinearLayout.LayoutParams layoutParamsCard = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParamsCard.gravity = Gravity.CENTER_VERTICAL;
+            cardView.setRadius(radius);
+            cardView.setLayoutParams(layoutParamsCard);
+            ((CardView) cardView).addView(textView);
+            ((LinearLayout) linearLayout).addView(cardView);
+
             linearLayout.setVisibility(View.INVISIBLE);
 
             //Make FAB
@@ -87,6 +105,7 @@ public class FabMenu {
             floatingActionButton.setScaleY(scaleFab);
             floatingActionButton.setScaleX(scaleFab);
             LinearLayout.LayoutParams layoutParamsFAB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParamsFAB.setMarginStart(margin/2);
             floatingActionButton.setLayoutParams(layoutParamsFAB);
             floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(colorMiniFab)));
 
@@ -112,6 +131,7 @@ public class FabMenu {
         linearParams.setMargins(margin,margin,margin,margin);
         linearLayout.setLayoutParams(linearParams);
 
+
         //Create Textview in Linearlayout
         TextView textView = new TextView(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -122,7 +142,7 @@ public class FabMenu {
         //Make FAB
         fab = new FloatingActionButton(context);
 
-        Drawable addDrawable = ContextCompat.getDrawable(context,R.drawable.ic_baseline_add_24);
+        Drawable addDrawable = context.getResources().getDrawable(R.drawable.ic_baseline_add_24);
         PorterDuff.Mode mode = PorterDuff.Mode.SRC_ATOP;
         addDrawable.setColorFilter(context.getResources().getColor(iconColor),mode);
         fab.setImageDrawable(addDrawable);
