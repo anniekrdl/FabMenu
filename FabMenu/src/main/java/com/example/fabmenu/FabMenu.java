@@ -2,6 +2,8 @@ package com.example.fabmenu;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +24,7 @@ public class FabMenu {
     private Context context;
     private FrameLayout frameLayout;
     private FloatingActionButton fab;
+    int iconColor = android.R.color.white;
     private boolean isFabOpen = false;
 
     //Changeable variables
@@ -45,7 +49,8 @@ public class FabMenu {
         this.colorMiniFab = colorMiniFab;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(int iconColor) {
+        this.iconColor = iconColor;
     }
 
     public void createFabMenu(int menu, int margin) {
@@ -117,7 +122,10 @@ public class FabMenu {
         //Make FAB
         fab = new FloatingActionButton(context);
 
-        fab.setImageResource(R.drawable.ic_baseline_add_24);
+        Drawable addDrawable = ContextCompat.getDrawable(context,R.drawable.ic_baseline_add_24);
+        PorterDuff.Mode mode = PorterDuff.Mode.SRC_ATOP;
+        addDrawable.setColorFilter(context.getResources().getColor(iconColor),mode);
+        fab.setImageDrawable(addDrawable);
         LinearLayout.LayoutParams layoutParamsFAB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         fab.setLayoutParams(layoutParamsFAB);
 
