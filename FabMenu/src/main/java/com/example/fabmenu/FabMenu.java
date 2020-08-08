@@ -29,7 +29,7 @@ public class FabMenu {
     int color = android.R.color.holo_orange_light;
     int colorMiniFab = android.R.color.holo_orange_light;
 
-    public void FabMenu(Context context, FrameLayout frameLayout, int menu) {
+    public FabMenu(Context context, FrameLayout frameLayout, int menu) {
         this.context =context;
         this.frameLayout = frameLayout;
         this.menu = menu;
