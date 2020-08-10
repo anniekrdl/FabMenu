@@ -1,4 +1,4 @@
-package com.example.fabmenu;
+package com.example.fabmenulibrary;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
+import com.example.fabmenu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -26,12 +27,14 @@ public class FabMenu {
     private FrameLayout frameLayout;
     private FloatingActionButton fab;
     private boolean isFabOpen = false;
+    private OnMenuItemClickListener onMenuItemClickListener;
 
     //Changeable variables
     int menu;
     int color = android.R.color.holo_orange_light;
     int colorMiniFab = android.R.color.holo_orange_light;
     int iconColor = android.R.color.white;
+    int menuId;
 
     public FabMenu(Context context, FrameLayout frameLayout, int menu) {
         this.context =context;
@@ -55,9 +58,11 @@ public class FabMenu {
 
     }
 
-    public void createFabMenu(int menu, int margin) {
+
+
+    public void createFabMenu(final int menu, int margin) {
         Float scaleFab = 0.8f;
-        Menu menuFAB = getMenu(menu);
+        final Menu menuFAB = getMenu(menu);
         int marginCardView = (int) convertDpToPixels(context, 9);
         int marginCardViewVertical = (int) convertDpToPixels(context,6);
         int radius = (int) convertDpToPixels(context,3);
@@ -77,19 +82,13 @@ public class FabMenu {
 
             //Create Textview
             TextView textView = new TextView(context);
-            try {
-                textView.setText(menuFAB.getItem(i).getTitle());
-                textView.setId(menuFAB.getItem(i).getItemId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            textView.setText(menuFAB.getItem(i).getTitle());
+            textView.setId(menuFAB.getItem(i).getItemId());
             textView.setTextSize(16);
             CardView.LayoutParams layoutParams = new CardView.LayoutParams(CardView.LayoutParams.WRAP_CONTENT, CardView.LayoutParams.WRAP_CONTENT);
             layoutParams.gravity = Gravity.CENTER_VERTICAL;
             layoutParams.setMargins(marginCardView, marginCardViewVertical, marginCardView, marginCardViewVertical);
             textView.setLayoutParams(layoutParams);
-
 
 
             //Create a Cardview with Textview
@@ -113,12 +112,22 @@ public class FabMenu {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             floatingActionButton.setScaleY(scaleFab);
             floatingActionButton.setScaleX(scaleFab);
             LinearLayout.LayoutParams layoutParamsFAB = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParamsFAB.setMarginStart(margin/2);
             floatingActionButton.setLayoutParams(layoutParamsFAB);
             floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(colorMiniFab)));
+
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onMenuItemClickListener != null) {
+                        onMenuItemClickListener.onMenuItemClick((FloatingActionButton) v,v.getId());
+                    }
+                }
+            });
 
             //Add fab to linearlayout
             ((LinearLayout) linearLayout).addView(floatingActionButton);
@@ -129,6 +138,7 @@ public class FabMenu {
 
         FabButton(margin);
     }
+
 
     private void FabButton(int margin) {
 
@@ -220,4 +230,13 @@ public class FabMenu {
         isFabOpen =false;
 
     }
+
+    public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
+        this.onMenuItemClickListener = listener;
+    }
+
+    public interface OnMenuItemClickListener {
+        void onMenuItemClick(FloatingActionButton button, int btnId);
+    }
+
 }

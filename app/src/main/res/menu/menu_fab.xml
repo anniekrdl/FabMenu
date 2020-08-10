@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="G-scheme"
-        android:icon="@android:drawable/ic_dialog_info"
+    <item android:title="Navigatie"
+        android:icon="@android:drawable/ic_dialog_map"
         android:id="@+id/gscheme"/>
     <item android:id="@+id/mood"
         android:icon="@android:drawable/ic_dialog_email"
         android:title="E-mail"/>
+    <item android:id="@+id/leeg"
+        android:title="No icon"/>
 
 </menu>
