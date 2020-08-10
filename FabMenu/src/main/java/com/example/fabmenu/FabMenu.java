@@ -1,4 +1,4 @@
-package com.example.fabmenulibrary;
+package com.example.fabmenu;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -17,7 +17,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
-import com.example.fabmenu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
