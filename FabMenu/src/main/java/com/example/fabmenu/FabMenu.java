@@ -8,12 +8,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 
@@ -23,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class FabMenu {
 
     private Context context;
-    private FrameLayout frameLayout;
+    private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
     private boolean isFabOpen = false;
     private OnMenuItemClickListener onMenuItemClickListener;
@@ -35,10 +35,10 @@ public class FabMenu {
     int iconColor = android.R.color.white;
     int menuId;
 
-    public FabMenu(Context context, FrameLayout frameLayout, int menu) {
+    public FabMenu(Context context, CoordinatorLayout coordinatorLayout, int menu) {
         this.context =context;
-        this.frameLayout = frameLayout;
-        frameLayout.setClipChildren(false);
+        this.coordinatorLayout = coordinatorLayout;
+        coordinatorLayout.setClipChildren(false);
         this.menu = menu;
     }
 
@@ -70,9 +70,9 @@ public class FabMenu {
             // Make linearlayout
             LinearLayout linearLayout = new LinearLayout(context);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-            FrameLayout.LayoutParams linearParams = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
+            CoordinatorLayout.LayoutParams linearParams = new CoordinatorLayout.LayoutParams(
+                    CoordinatorLayout.LayoutParams.WRAP_CONTENT,
+                    CoordinatorLayout.LayoutParams.WRAP_CONTENT);
             linearParams.gravity = Gravity.BOTTOM|Gravity.END;
             linearParams.setMargins(margin,margin,margin,margin);
 
@@ -125,14 +125,13 @@ public class FabMenu {
                     if (onMenuItemClickListener != null) {
                         onMenuItemClickListener.onMenuItemClick((FloatingActionButton) v,v.getId());
                     }
-                    closeFABMenu(menu);
                 }
             });
 
             //Add fab to linearlayout
             ((LinearLayout) linearLayout).addView(floatingActionButton);
 
-            frameLayout.addView(linearLayout);
+            coordinatorLayout.addView(linearLayout);
 
         }
 
@@ -145,9 +144,9 @@ public class FabMenu {
         // Make linearlayout
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        FrameLayout.LayoutParams linearParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
+        CoordinatorLayout.LayoutParams linearParams = new CoordinatorLayout.LayoutParams(
+                CoordinatorLayout.LayoutParams.WRAP_CONTENT,
+                CoordinatorLayout.LayoutParams.WRAP_CONTENT);
         linearParams.gravity = Gravity.BOTTOM|Gravity.END;
         linearParams.setMargins(margin,margin,margin,margin);
         linearLayout.setLayoutParams(linearParams);
@@ -173,7 +172,7 @@ public class FabMenu {
         //Add fab to linearlayout
         ((LinearLayout) linearLayout).addView(fab);
 
-        frameLayout.addView(linearLayout);
+        coordinatorLayout.addView(linearLayout);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +205,7 @@ public class FabMenu {
     private void showFABMenu(int menu){
         Menu menuFAB = getMenu(menu);
         for (int i=0; i<menuFAB.size(); i++) {
-            LinearLayout linearLayout = frameLayout.findViewById(menuFAB.getItem(i).getItemId());
+            LinearLayout linearLayout = coordinatorLayout.findViewById(menuFAB.getItem(i).getItemId());
             linearLayout.animate().translationY((i+1)*convertDpToPixels(context,-65));
             linearLayout.setVisibility(View.VISIBLE);
         }
@@ -222,7 +221,7 @@ public class FabMenu {
     private void closeFABMenu(int menu){
         Menu menuFAB = getMenu(menu);
         for (int i=0; i<menuFAB.size(); i++) {
-            LinearLayout linearLayout = frameLayout.findViewById(menuFAB.getItem(i).getItemId());
+            LinearLayout linearLayout = coordinatorLayout.findViewById(menuFAB.getItem(i).getItemId());
             linearLayout.animate().translationY(0);
             linearLayout.setVisibility(View.INVISIBLE);
         }
