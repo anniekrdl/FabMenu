@@ -125,6 +125,7 @@ public class FabMenu {
                     if (onMenuItemClickListener != null) {
                         onMenuItemClickListener.onMenuItemClick((FloatingActionButton) v,v.getId());
                     }
+                    closeFABMenu(menu);
                 }
             });
 
