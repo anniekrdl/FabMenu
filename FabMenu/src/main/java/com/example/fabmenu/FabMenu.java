@@ -125,6 +125,7 @@ public class FabMenu {
                     if (onMenuItemClickListener != null) {
                         onMenuItemClickListener.onMenuItemClick((FloatingActionButton) v,v.getId());
                     }
+                    closeFABMenu(menu);
                 }
             });
 
@@ -155,7 +156,6 @@ public class FabMenu {
         //Create Textview in Linearlayout
         TextView textView = new TextView(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER_VERTICAL;
         textView.setLayoutParams(layoutParams);
         ((LinearLayout) linearLayout).addView(textView);
 
